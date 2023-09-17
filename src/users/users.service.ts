@@ -29,7 +29,7 @@ export class UsersService {
   }
 
   async update(id: number, attrs: Partial<User>): Promise<User> {
-    const user: User = await this.repo.findOneBy({ id });
+    const user: User = await this.findOne(id);
 
     if (!user) {
       throw new Error("user not found");
@@ -37,5 +37,13 @@ export class UsersService {
 
     Object.assign(user, attrs);
     return this.repo.save(user);
+  }
+
+  async remove(id: number): Promise<User> {
+    const user: User = await this.findOne(id);
+    if (!user) {
+      throw new Error("user not found");
+    }
+    return this.repo.remove(user);
   }
 }
