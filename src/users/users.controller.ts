@@ -25,7 +25,7 @@ export class UsersController {
 
   @Get("/:id")
   findUser(@Param("id") id: string): Promise<User> {
-    console.log('handler is running');
+    console.log("handler is running");
     return this.usersService.findOne(+id);
   }
 

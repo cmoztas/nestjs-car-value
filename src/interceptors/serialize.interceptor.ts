@@ -3,7 +3,11 @@ import { Observable } from "rxjs";
 import { map } from "rxjs/operators";
 import { plainToInstance } from "class-transformer";
 
-export function Serialize(dto: any): MethodDecorator & ClassDecorator {
+interface ClassConstructor {
+  new(...args: any[]): {};
+}
+
+export function Serialize(dto: ClassConstructor): MethodDecorator & ClassDecorator {
   return UseInterceptors(new SerializeInterceptor(dto));
 }
 
