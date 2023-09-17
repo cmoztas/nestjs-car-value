@@ -19,4 +19,12 @@ export class UsersService {
 
     return this.repo.save(createdUser);
   }
+
+  findOne(id: number): Promise<User> {
+    return this.repo.findOneBy({ id });
+  }
+
+  find(email: string): Promise<User[]> {
+    return this.repo.find({ where: { email } });
+  }
 }
