@@ -24,5 +24,4 @@ export class User {
   logRemove() {
     console.log("Removed User with id", this.id);
   }
-
 }
