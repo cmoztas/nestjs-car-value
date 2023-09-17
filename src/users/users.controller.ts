@@ -14,6 +14,7 @@ import { CreateUserDto } from "./dtos/create-user.dto";
 import { UsersService } from "./users.service";
 import { User } from "./user.entity";
 import { UpdateUserDto } from "./dtos/update-user.dto";
+import { SerializeInterceptor } from "../interceptors/serialize.interceptor";
 
 @Controller("auth")
 export class UsersController {
@@ -22,9 +23,10 @@ export class UsersController {
   ) {
   }
 
-  @UseInterceptors(ClassSerializerInterceptor)
+  @UseInterceptors(SerializeInterceptor)
   @Get("/:id")
   findUser(@Param("id") id: string): Promise<User> {
+    console.log('handler is running');
     return this.usersService.findOne(+id);
   }
 
