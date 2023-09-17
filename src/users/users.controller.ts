@@ -1,6 +1,5 @@
 import {
   Body,
-  ClassSerializerInterceptor,
   Controller,
   Delete,
   Get,
@@ -30,7 +29,7 @@ export class UsersController {
     return this.usersService.findOne(+id);
   }
 
-  @UseInterceptors(ClassSerializerInterceptor)
+  @UseInterceptors(SerializeInterceptor)
   @Get()
   findAllUsers(@Query("email") email: string): Promise<User[]> {
     return this.usersService.find(email);
