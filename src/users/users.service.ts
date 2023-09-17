@@ -27,4 +27,15 @@ export class UsersService {
   find(email: string): Promise<User[]> {
     return this.repo.find({ where: { email } });
   }
+
+  async update(id: number, attrs: Partial<User>): Promise<User> {
+    const user: User = await this.repo.findOneBy({ id });
+
+    if (!user) {
+      throw new Error("user not found");
+    }
+
+    Object.assign(user, attrs);
+    return this.repo.save(user);
+  }
 }
