@@ -16,20 +16,19 @@ import { Serialize } from "../interceptors/serialize.interceptor";
 import { UserDto } from "./dtos/user.dto";
 
 @Controller("auth")
+@Serialize(UserDto)
 export class UsersController {
   constructor(
     private usersService: UsersService
   ) {
   }
 
-  @Serialize(UserDto)
   @Get("/:id")
   findUser(@Param("id") id: string): Promise<User> {
     console.log('handler is running');
     return this.usersService.findOne(+id);
   }
 
-  @Serialize(UserDto)
   @Get()
   findAllUsers(@Query("email") email: string): Promise<User[]> {
     return this.usersService.find(email);
