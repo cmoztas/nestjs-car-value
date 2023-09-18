@@ -40,6 +40,11 @@ export class UsersController {
     return this.authService.signup(body);
   }
 
+  @Post("/login")
+  login(@Body() body: CreateUserDto): Promise<User> {
+    return this.authService.signin(body);
+  }
+
   @Patch("/:id")
   updateUser(@Param("id") id: string, @Body() body: UpdateUserDto): Promise<User> {
     return this.usersService.update(+id, body);
