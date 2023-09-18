@@ -14,18 +14,19 @@ import { User } from "./user.entity";
 import { UpdateUserDto } from "./dtos/update-user.dto";
 import { Serialize } from "../interceptors/serialize.interceptor";
 import { UserDto } from "./dtos/user.dto";
+import { AuthService } from "./auth.service";
 
 @Controller("auth")
 @Serialize(UserDto)
 export class UsersController {
   constructor(
-    private usersService: UsersService
+    private usersService: UsersService,
+    private authService: AuthService
   ) {
   }
 
   @Get("/:id")
   findUser(@Param("id") id: string): Promise<User> {
-    console.log("handler is running");
     return this.usersService.findOne(+id);
   }
 
@@ -35,8 +36,8 @@ export class UsersController {
   }
 
   @Post("/signup")
-  createUser(@Body() body: CreateUserDto): void {
-    void this.usersService.create(body);
+  createUser(@Body() body: CreateUserDto): Promise<User> {
+    return this.authService.signup(body);
   }
 
   @Patch("/:id")
